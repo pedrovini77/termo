@@ -41,18 +41,21 @@ function verificar() {
     let posicaoCerta = 0;
 
     for (let i = 0; i < qtdLetras; i++) {
-        let caixa = document.forms["termo"+rodada]["letra" + i].value.toUpperCase();
+        let caixa = document.forms["termo"+rodada]["letra" + i];
+        let valor = caixa.value.toUpperCase();
 
-        if (caixa == segredo[i]) {
+        // A classificação visual não altera as regras de validação do jogo.
+        caixa.classList.remove("is-correct", "is-present", "is-absent");
+        if (valor == segredo[i]) {
             posicaoCerta++;
-            document.forms["termo"+rodada]["letra" + i].style.backgroundColor = "green";
-        } else if(segredo.includes(caixa)) {
-            document.forms["termo"+rodada]["letra" + i].style.backgroundColor = "yellow";
+            caixa.classList.add("is-correct");
+        } else if(segredo.includes(valor)) {
+            caixa.classList.add("is-present");
         } else {
-            document.forms["termo"+rodada]["letra" + i].style.backgroundColor = "gray";
-        }    
-        
-        tentativa += caixa;
+            caixa.classList.add("is-absent");
+        }
+
+        tentativa += valor;
     }
 
     tentativas.push(tentativa);
@@ -81,7 +84,6 @@ function verificar() {
             alert("Fim de Jogo")
         }
     }
-        
 
     alert(tentativa);
 
@@ -125,6 +127,8 @@ function criarFormulario() {
         caixa.type = "text";
         caixa.maxLength = 1;
         caixa.name = "letra" + i
+        caixa.className = "letter-box";
+        caixa.setAttribute("aria-label", "Letra " + (i + 1));
 
         formulario.appendChild(caixa);
     }
