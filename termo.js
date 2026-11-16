@@ -129,6 +129,11 @@ function criarFormulario() {
         caixa.name = "letra" + i
         caixa.className = "letter-box";
         caixa.setAttribute("aria-label", "Letra " + (i + 1));
+        caixa.addEventListener("input", function () {
+            if (caixa.value.length === caixa.maxLength && i < qtdLetras - 1) {
+                formulario.elements["letra" + (i + 1)].focus();
+            }
+        });
 
         formulario.appendChild(caixa);
     }
