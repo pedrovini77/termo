@@ -55,6 +55,7 @@ function verificar() {
             caixa.classList.add("is-absent");
         }
 
+        caixa.disabled = true;
         tentativa += valor;
     }
 
